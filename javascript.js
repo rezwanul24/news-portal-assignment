@@ -55,7 +55,8 @@ const url = `https://openapi.programming-hero.com/api/news/category/08`;
 
     const displayData = (data) => {
         
-        
+        const itemFound = document.getElementById('item-found');
+        itemFound.innerHTML = `${data.length} item found`;
         data.forEach(post =>{
             
    
