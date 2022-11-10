@@ -23,3 +23,23 @@ body{
     align-items: center;
 
 }
+
+.custom-hight{
+    height: 350px;
+    overflow: hidden;
+}
+
+.hight{
+    height: 338px!important;
+}
+
+.hight-80{
+    height: 80%!important;
+    overflow: hidden;
+}
+
+.hight-20{
+    height: 20%;
+    
+}
+
