@@ -27,7 +27,7 @@ const displayCategories = (categories) =>{
         
         const categoryName = Object.values(category)[1];
         const categoryId = Object.values(category)[0];
-        console.log(categoryId);
+        // console.log(categoryId);
         const dropdownCategories = document.getElementById('dropdown-categories');
         const createUl = document.createElement('li');
         createUl.classList.add('dropdown-item');
@@ -57,6 +57,7 @@ const url = `https://openapi.programming-hero.com/api/news/category/08`;
         
         const itemFound = document.getElementById('item-found');
         itemFound.innerHTML = `${data.length} item found`;
+        
         data.forEach(post =>{
             
    
@@ -73,11 +74,11 @@ const url = `https://openapi.programming-hero.com/api/news/category/08`;
     createPostDiv.innerHTML =`
     
     <div class="row g-0">
-    <div class="col-md-3">
+    <div class="col-md-3 col-sm-12">
         <img src="${post.thumbnail_url}"
             class="img-fluid p-3 rounded-start" alt="...">
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9 col-sm-12">
         <div class="card-body px-5 hight" style="height: 338px!important;">
             <div class="hight-80">
                 <h5 class="card-title">${post.title}</h5>
@@ -89,12 +90,12 @@ const url = `https://openapi.programming-hero.com/api/news/category/08`;
                             src="${post.author.img}"
                             alt=""></div>
                     <div class="mx-2">
-                        <p class="px-1">${post.author.name} <br>${post.author.published_date}</p>
+                        <p class="px-1">${post.author.name ? post.author.name : 'no data found'} <br>${post.author.published_date ? post.author.published_date : 'no data found'}</p>
 
                     </div>
                 </div>
                 <div class="d-flex align-items-center"><i class="fa-regular fa-eye "></i>
-                    <span class="px-2 text-bold">${post.total_view}</span>
+                    <span class="px-2 text-bold">${post.total_view ? post.total_view : 'no data found'}</span>
                 </div>
                 <div class="d-flex align-items-center">
                     <i class="fa-solid fa-star"></i>
@@ -110,22 +111,32 @@ const url = `https://openapi.programming-hero.com/api/news/category/08`;
     </div>
             
     `;
-
+    
     getPostDiv.appendChild(createPostDiv);
 
         },)}
+        
 
 const getNewsId = (categoryId= "08") =>{
     
     
-
+        
         // const caterieId = Object.values(cateries)[0];
         // console.log(caterieId);
-        const url = `https://openapi.programming-hero.com/api/news/category/${categoryId}`;
+        try{
+            const url = `https://openapi.programming-hero.com/api/news/category/${categoryId}`;
         // console.log(url)
         fetch(url)
         .then(res => res.json())
         .then(news => displayData(news.data));
+        }
+        catch (error){
+            const url = `https://openapi.programming-hero.com/api/news/category/${categoryId}`;
+        // console.log(url)
+        fetch(url)
+        .then(res => res.json())
+        .then(news => displayData(news.data));
+        }
    
         const getPostDiv = document.getElementById('post');
         getPostDiv.innerHTML = '';
@@ -140,10 +151,6 @@ const getNewsId = (categoryId= "08") =>{
         data.forEach(post =>{
             // console.log(post);
    
-    
-    
-    
-    
     const getPostDiv = document.getElementById('post');
     
     const createPostDiv = document.createElement('div');
@@ -169,12 +176,12 @@ const getNewsId = (categoryId= "08") =>{
                             src="${post.author.img}"
                             alt=""></div>
                     <div class="mx-2">
-                        <p class="px-1">${post.author.name} <br>${post.author.published_date}</p>
+                        <p class="px-1">${post.author.name ? post.author.name : 'no data found'} <br>${post.author.published_date ? post.author.published_date : 'no data found'}</p>
 
                     </div>
                 </div>
                 <div class="d-flex align-items-center"><i class="fa-regular fa-eye "></i>
-                    <span class="px-2 text-bold">${post.total_view}</span>
+                    <span class="px-2 text-bold">${post.total_view ? post.total_view : 'no data found'}</span>
                 </div>
                 <div class="d-flex align-items-center">
                     <i class="fa-solid fa-star"></i>
@@ -190,9 +197,9 @@ const getNewsId = (categoryId= "08") =>{
     </div>
             
     `;
-
+    
     getPostDiv.appendChild(createPostDiv);
-
+    
         }
         
     
@@ -205,19 +212,25 @@ const getNewsId = (categoryId= "08") =>{
 const lunchModal = (postId) => {
     console.log(postId);
     const url = `https://openapi.programming-hero.com/api/news/${postId}`
-    console.log(url);
+    // console.log(url);
     fetch(url)
     .then(res => res.json())
     .then(data => displayPostDetails(data.data));
 }
 // display Cateries
 const displayPostDetails = (data) =>{
-    console.log(data)
- 
-    data.forEach(newsDetails =>{
-        
-        console.log(newsDetails)
-        
-
-    })
+    // console.log(data[0])
+    const newsDetails = data[0];
+    
+    const modalTitle = document.getElementById('exampleModalLabel');
+    modalTitle.innerText = newsDetails.title;
+    const detailsBody = document.getElementById('body');
+    detailsBody.innerHTML = `
+    <img class="center" src="${newsDetails.image_url}">
+    <p>"${newsDetails.details}"</p>
+    `
+    // console.log(newsDetails.title);
+    
+    
 }
+
