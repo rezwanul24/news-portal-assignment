@@ -7,7 +7,7 @@ const fetchUrl = () => {
 }
 // display Cateries
 const displayCategories = (categories) =>{
-    console.log(categories)
+    // console.log(categories)
  
     categories.forEach(category =>{
         
@@ -65,7 +65,7 @@ const url = `https://openapi.programming-hero.com/api/news/category/08`;
     
     
     const getPostDiv = document.getElementById('post');
-    
+    // console.log(post);
     const createPostDiv = document.createElement('div');
     createPostDiv.classList.add('card');
     createPostDiv.classList.add('m-3');
@@ -103,7 +103,7 @@ const url = `https://openapi.programming-hero.com/api/news/category/08`;
                     <i class="fa-solid fa-star"></i>
 
                 </div>
-                <div class="d-flex align-items-center"><i class="fa-solid fa-arrow-right"></i></div>
+                <div id="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="lunchModal('${post._id}')" class="d-flex align-items-center"><i class="fa-solid fa-arrow-right"></i></div>
             </div>
         </div>
     </div>
@@ -138,7 +138,7 @@ const getNewsId = (categoryId= "08") =>{
         const itemFound = document.getElementById('item-found');
         itemFound.innerHTML = `${data.length} item found`
         data.forEach(post =>{
-            
+            // console.log(post);
    
     
     
@@ -183,7 +183,7 @@ const getNewsId = (categoryId= "08") =>{
                     <i class="fa-solid fa-star"></i>
 
                 </div>
-                <div class="d-flex align-items-center"><i class="fa-solid fa-arrow-right"></i></div>
+                <div id="modal" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="lunchModal('${post._id}')" class="d-flex align-items-center"><i class="fa-solid fa-arrow-right"></i></div>
             </div>
         </div>
     </div>
@@ -200,4 +200,24 @@ const getNewsId = (categoryId= "08") =>{
         )
     }
     
+}
+
+const lunchModal = (postId) => {
+    console.log(postId);
+    const url = `https://openapi.programming-hero.com/api/news/${postId}`
+    console.log(url);
+    fetch(url)
+    .then(res => res.json())
+    .then(data => displayPostDetails(data.data));
+}
+// display Cateries
+const displayPostDetails = (data) =>{
+    console.log(data)
+ 
+    data.forEach(newsDetails =>{
+        
+        console.log(newsDetails)
+        
+
+    })
 }
